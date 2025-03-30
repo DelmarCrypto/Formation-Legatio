@@ -85,6 +85,25 @@ body {
     margin-top: 1rem;
 }
 
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--primary);
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 500;
+    margin-top: 1.5rem;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: var(--glow);
+}
+
+.cta-button:hover {
+    background: var(--hover-dark);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #FF007A, 0 0 25px #FF66B2;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -152,5 +171,10 @@ body {
 
     .lesson {
         padding: 1rem;
+    }
+
+    .cta-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
     }
 }
