@@ -1,15 +1,11 @@
-:root {
-    --primary: #FFD700; /* Jaune doré */
-    --secondary: #00D4FF; /* Bleu cyan */
-    --accent: #00FA9A; /* Vert clair */
-    --background: #0A0A0A; /* Noir profond */
-    --surface: #1A1A1A; /* Gris foncé */
-    --text: #FFFFFF; /* Blanc */
-    --text-secondary: #B0B0B0; /* Gris clair */
-    --button-bg: #2A2A2A; /* Gris sombre */
-    --button-text: #FFD700; /* Jaune */
-    --hover: #00B7EB; /* Cyan clair */
-    --glow: 0 0 8px rgba(255, 215, 0, 0.5); /* Lueur jaune */
+harmonise le theme de la formation (couleurs, style, etc...) avec le site internet legatio : :root {
+    --primary: #FF007A;
+    --background: #000000;
+    --text: #FFFFFF;
+    --button-bg: #1A1A1A;
+    --hover-dark: #FF4DA6;
+    --accent-pink: #FF66B2;
+    --glow: 0 0 10px #FF007A, 0 0 20px #FF007A, 0 0 30px #FF66B2;
 }
 
 * {
@@ -19,25 +15,22 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, var(--background), var(--surface));
+    font-family: 'Orbitron', sans-serif;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat, linear-gradient(135deg, #000000 0%, #1A1A1A 100%);
     color: var(--text);
     line-height: 1.6;
-    overflow-x: hidden;
 }
 
 .navbar {
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.8);
     padding: 1rem;
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .navbar .container {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -48,10 +41,8 @@ body {
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--primary);
-    text-decoration: none;
     text-shadow: var(--glow);
-    opacity: 0;
-    animation: fadeIn 1s ease-in forwards;
+    text-decoration: none;
 }
 
 .navbar ul {
@@ -65,216 +56,116 @@ body {
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s;
-    opacity: 0;
-    animation: fadeIn 1s ease-in forwards;
-    animation-delay: 0.2s;
 }
 
 .navbar a:hover {
-    color: var(--accent);
+    color: var(--primary);
 }
 
 .header {
-    padding: 6rem 1rem;
+    padding: 4rem 1rem;
     text-align: center;
-    position: relative;
 }
 
 .header-content h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
+    font-size: 3rem;
     color: var(--primary);
     text-shadow: var(--glow);
-    opacity: 0;
-    animation: fadeIn 1s ease-in forwards;
+    animation: glow 2s infinite;
+}
+
+@keyframes glow {
+    0% { text-shadow: var(--glow); }
+    50% { text-shadow: 0 0 5px #FF007A, 0 0 10px #FF66B2; }
+    100% { text-shadow: var(--glow); }
 }
 
 .header-content p {
-    font-size: 1.6rem;
-    font-weight: 400;
-    color: var(--text-secondary);
-    margin: 1.5rem 0;
-    opacity: 0;
-    animation: fadeIn 1.2s ease-in forwards;
+    font-size: 1.2rem;
+    margin-top: 1rem;
 }
 
 .cta-button {
     display: inline-block;
-    padding: 0.8rem 2rem;
-    background: var(--button-bg);
-    color: var(--button-text);
+    padding: 1rem 2rem;
+    background: var(--primary);
+    color: var(--text);
     text-decoration: none;
-    border-radius: 50px;
+    border-radius: 25px;
     font-weight: 500;
-    margin-top: 1rem;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    opacity: 0;
-    animation: fadeIn 1s ease-in forwards;
-    animation-delay: 0.4s;
-}
-
-.cta-button::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(0, 250, 154, 0.3);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.4s ease, height 0.4s ease;
-}
-
-.cta-button:hover::after {
-    width: 200%;
-    height: 200%;
+    margin-top: 1.5rem;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: var(--glow);
 }
 
 .cta-button:hover {
-    background: var(--accent);
-    color: var(--background);
-    transform: translateY(-2px);
+    background: var(--hover-dark);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #FF007A, 0 0 25px #FF66B2;
 }
 
 .container {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
 }
 
 .section {
-    padding: 4rem 0;
-    opacity: 1; /* Secours pour afficher sans JS */
-}
-
-.section:not(.visible) {
-    opacity: 0;
-    transition: opacity 0.5s ease-out;
-}
-
-.section.visible {
-    opacity: 1;
-    animation: fadeIn 1s ease-in forwards;
+    padding: 2rem 0;
 }
 
 .section h2 {
     text-align: center;
-    font-size: 2.5rem;
     color: var(--primary);
     text-shadow: var(--glow);
+    animation: glow 2s infinite;
     margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeIn 1s ease-in forwards;
 }
 
 .lesson {
-    background: var(--surface);
+    background: #1A1A1A;
     padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     border-radius: 12px;
     transition: transform 0.3s, box-shadow 0.3s;
-    opacity: 0;
-    animation: fadeIn 1s ease-in forwards;
 }
-
-.lesson:nth-child(2) { animation-delay: 0.2s; }
-.lesson:nth-child(3) { animation-delay: 0.4s; }
-.lesson:nth-child(4) { animation-delay: 0.6s; }
-.lesson:nth-child(5) { animation-delay: 0.8s; }
-.lesson:nth-child(6) { animation-delay: 1.0s; }
 
 .lesson:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2);
+    box-shadow: 0 5px 15px rgba(255, 0, 122, 0.3);
 }
 
 .lesson h3 {
-    font-size: 1.6rem;
-    color: var(--secondary);
-    margin-bottom: 1rem;
-    text-shadow: 0 0 4px rgba(0, 212, 255, 0.3);
+    color: var(--accent-pink);
+    margin-bottom: 0.5rem;
 }
 
 .lesson p {
     font-size: 1rem;
-    color: var(--text);
 }
 
 .footer {
-    background: var(--background);
-    padding: 3rem 1rem;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 1.5rem;
     text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.footer p {
-    font-size: 1rem;
-    color: var(--text-secondary);
 }
 
 .footer a {
     color: var(--primary);
     text-decoration: none;
-    transition: color 0.3s;
 }
 
 .footer a:hover {
-    color: var(--accent);
-}
-
-.fa-icon {
-    margin-right: 0.5rem;
-    color: var(--primary);
-    transition: color 0.3s;
-}
-
-.fa-icon:hover {
-    color: var(--accent);
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    color: var(--hover-dark);
 }
 
 @media (max-width: 768px) {
-    .navbar .container {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
     .navbar ul {
-        display: flex;
-        flex-direction: row;
+        flex-direction: column;
         gap: 1rem;
     }
 
-    .header {
-        padding: 3rem 0.5rem;
-    }
-
     .header-content h1 {
-        font-size: 2.5rem;
-    }
-
-    .header-content p {
-        font-size: 1.2rem;
-    }
-
-    .section {
-        padding: 3rem 0.5rem;
-    }
-
-    .section h2 {
         font-size: 2rem;
     }
 
@@ -282,38 +173,8 @@ body {
         padding: 1rem;
     }
 
-    .lesson h3 {
-        font-size: 1.3rem;
-    }
-
     .cta-button {
         padding: 0.8rem 1.5rem;
         font-size: 0.9rem;
-    }
-
-    .footer {
-        padding: 1.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .navbar ul {
-        gap: 0.5rem;
-    }
-
-    .navbar a {
-        font-size: 0.9rem;
-    }
-
-    .header {
-        padding: 2rem 0.5rem;
-    }
-
-    .header-content h1 {
-        font-size: 2rem;
-    }
-
-    .section {
-        padding: 2rem 0.5rem;
     }
 }
