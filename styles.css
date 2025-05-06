@@ -147,6 +147,10 @@ body {
 
 .section {
     padding: 4rem 0;
+    opacity: 1; /* Secours pour afficher sans JS */
+}
+
+.section:not(.visible) {
     opacity: 0;
     transition: opacity 0.5s ease-out;
 }
