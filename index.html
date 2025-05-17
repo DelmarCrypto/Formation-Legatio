@@ -228,6 +228,7 @@
 
         .section.visible {
             animation: fadeIn 1s ease-in forwards;
+            opacity: 1;
         }
 
         .section h2 {
@@ -238,6 +239,13 @@
             margin-bottom: 1.5rem;
         }
 
+        .section-overview {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
         .lesson {
             background: var(--surface);
             padding: 1.5rem;
@@ -245,6 +253,11 @@
             border-radius: 12px;
             transition: transform 0.3s, box-shadow 0.3s;
             will-change: transform;
+            display: none;
+        }
+
+        .lesson.visible {
+            display: block;
         }
 
         .lesson:hover {
@@ -400,21 +413,24 @@
             <div class="header-content">
                 <h1>Guide Complet des Cryptomonnaies</h1>
                 <p>Achetez, stockez et gérez vos cryptomonnaies en toute sécurité</p>
-                <a href="https://www.paypal.com/ncp/payment/D5XPBFGB6UP9S" class="cta-button" target="_blank" rel="noopener noreferrer" aria-label="Acheter la formation via PayPal">Obtenir la Formation</a>
+                <div id="cta-container" style="display: none;">
+                    <a href="https://www.paypal.com/ncp/payment/D5XPBFGB6UP9S" class="cta-button" target="_blank" rel="noopener noreferrer" aria-label="Acheter la formation via PayPal">Obtenir la Formation</a>
+                </div>
             </div>
             <div class="lead-form">
-                <h3>Rejoignez notre formation !</h3>
+                <h3>Renseignez vos coordonnées pour accéder à la formation</h3>
                 <div id="form-message"></div>
                 <input type="text" id="name" placeholder="Votre nom" required aria-label="Nom">
                 <input type="email" id="email" placeholder="Votre email" required aria-label="Email">
                 <input type="tel" id="phone" placeholder="Votre téléphone" required aria-label="Téléphone">
-                <button type="submit" onclick="submitLead()">S'inscrire</button>
+                <button type="submit" onclick="submitLead()">Déverrouiller la Formation</button>
             </div>
         </section>
 
         <div class="container">
             <section class="section" id="semaine1">
                 <h2>Semaine 1 : Introduction aux Cryptomonnaies et Sécurité</h2>
+                <p class="section-overview">Découvrez les bases des cryptomonnaies, leur historique, et apprenez à sécuriser vos actifs numériques contre les risques courants.</p>
                 <div class="lesson">
                     <h3>Leçon 1 : Introduction aux Cryptomonnaies</h3>
                     <p>Qu'est-ce qu'une cryptomonnaie ? Définition, historique (Bitcoin et altcoins), avantages (décentralisation, confidentialité), risques (volatilité, sécurité).</p>
@@ -439,6 +455,7 @@
 
             <section class="section" id="semaine2">
                 <h2>Semaine 2 : Choix de la Cryptomonnaie et Plateformes</h2>
+                <p class="section-overview">Apprenez à sélectionner la cryptomonnaie adaptée à vos besoins et à choisir une plateforme d’échange fiable.</p>
                 <div class="lesson">
                     <h3>Leçon 1 : Les Différentes Cryptomonnaies</h3>
                     <p>Bitcoin, Ethereum, Ripple, Litecoin : technologies, cas d’utilisation, critères de choix.</p>
@@ -463,6 +480,7 @@
 
             <section class="section" id="semaine3">
                 <h2>Semaine 3 : Création d’un Portefeuille Sécurisé</h2>
+                <p class="section-overview">Maîtrisez la création et la sécurisation de portefeuilles numériques pour protéger vos cryptomonnaies.</p>
                 <div class="lesson">
                     <h3>Leçon 1 : Qu’est-ce qu’un Portefeuille Numérique ?</h3>
                     <p>Rôle, clés publiques/privées, gestion des cryptomonnaies.</p>
@@ -491,6 +509,7 @@
 
             <section class="section" id="semaine4">
                 <h2>Semaine 4 : Achat et Gestion des Risques</h2>
+                <p class="section-overview">Apprenez à acheter des cryptomonnaies en toute sécurité et à gérer les risques associés.</p>
                 <div class="lesson">
                     <h3>Leçon 1 : Méthodes d’Achat</h3>
                     <p>Plateformes d’échange, P2P, ATMs, services de courtage.</p>
@@ -515,6 +534,7 @@
 
             <section class="section" id="bonus">
                 <h2>Bonus : Fiscalité et Stratégies</h2>
+                <p class="section-overview">Comprenez la fiscalité des cryptomonnaies et découvrez des stratégies d’investissement adaptées.</p>
                 <div class="lesson">
                     <h3>Leçon 1 : Fiscalité et Réglementation</h3>
                     <p>Déclaration des revenus, taxes sur gains, lois AML/CFT.</p>
@@ -532,6 +552,25 @@
     </footer>
 
     <script>
+        // Check if content is already unlocked
+        function checkContentAccess() {
+            const isUnlocked = localStorage.getItem('contentUnlocked') === 'true';
+            const lessons = document.querySelectorAll('.lesson');
+            const ctaContainer = document.getElementById('cta-container');
+
+            if (isUnlocked) {
+                lessons.forEach(lesson => {
+                    lesson.classList.add('visible');
+                });
+                ctaContainer.style.display = 'block';
+            } else {
+                lessons.forEach(lesson => {
+                    lesson.classList.remove('visible');
+                });
+                ctaContainer.style.display = 'none';
+            }
+        }
+
         // Lead form submission
         function submitLead() {
             const name = document.getElementById('name').value;
@@ -546,7 +585,11 @@
 
             // Simulate form submission (replace with actual backend integration)
             console.log('Lead submitted:', { name, email, phone });
-            messageDiv.innerHTML = '<p style="color: var(--accent);">Merci ! Nous vous contacterons bientôt.</p>';
+            messageDiv.innerHTML = '<p style="color: var(--accent);">Merci ! La formation est déverrouillée.</p>';
+
+            // Unlock content
+            localStorage.setItem('contentUnlocked', 'true');
+            checkContentAccess();
 
             // Clear form
             document.getElementById('name').value = '';
@@ -561,15 +604,16 @@
 
             sections.forEach(section => {
                 const sectionTop = section.getBoundingClientRect().top;
-
                 if (sectionTop < triggerBottom) {
                     section.classList.add('visible');
                 }
             });
         }
 
+        // Initialize
+        checkContentAccess();
         window.addEventListener('scroll', handleScroll);
-        handleScroll(); // Trigger on page load
+        handleScroll();
     </script>
 </body>
 </html>
