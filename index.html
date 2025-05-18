@@ -6,14 +6,20 @@
     <meta name="description" content="Maîtrisez l'achat, le stockage et la gestion sécurisée des cryptomonnaies avec notre formation complète, incluant un bonus sur la fiscalité.">
     <meta name="keywords" content="cryptomonnaies, sécurité, portefeuille numérique, trading, fiscalité, formation">
     <meta name="author" content="Legatio Finance Team">
+    <meta property="og:title" content="Guide Ultime des Cryptomonnaies">
+    <meta property="og:description" content="Maîtrisez les cryptomonnaies avec notre formation complète.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1620321023374-6e6e14e5b2cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:url" content="https://legatiofinance.com">
+    <meta name="twitter:card" content="summary_large_image">
     <title>Guide Ultime des Cryptomonnaies - Legatio Finance</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" async />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Roboto:wght@400;500&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #F5C518; /* Or vibrant */
             --secondary: #00C4FF; /* Cyan éclatant */
-            --accent: #00FF88; /* Vert néon */
+            --accent: #34D399; /* Emerald, softened from neon green */
             --background: #0F172A; /* Bleu nuit profond */
             --surface: #1E293B; /* Bleu-gris sombre */
             --text: #F8FAFC; /* Blanc cassé */
@@ -49,6 +55,15 @@
             background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"%3E%3Ccircle cx="20" cy="20" r="2" fill="%2300C4FF" fill-opacity="0.1"/%3E%3C/svg%3E') repeat;
             opacity: 0.05;
             z-index: -1;
+        }
+
+        @font-face {
+            font-family: 'Poppins';
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            font-display: swap;
         }
 
         .navbar {
@@ -119,7 +134,7 @@
             left: 50%;
             width: 0;
             height: 0;
-            background: rgba(0, 255, 136, 0.3);
+            background: rgba(52, 211, 153, 0.3);
             border-radius: 50%;
             transform: translate(-50%, -50%);
             transition: width 0.4s ease, height 0.4s ease;
@@ -131,7 +146,7 @@
         }
 
         .navbar .cta-button:hover {
-            background: var(--accent);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             color: var(--background);
             transform: translateY(-3px);
         }
@@ -140,6 +155,20 @@
             padding: 8rem 1rem 4rem;
             text-align: center;
             background: linear-gradient(180deg, rgba(0, 196, 255, 0.1), transparent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1620321023374-6e6e14e5b2cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center/cover;
+            opacity: 0.2;
+            z-index: -1;
         }
 
         .header-content h1 {
@@ -149,23 +178,47 @@
             color: var(--primary);
             text-shadow: var(--glow);
             margin-bottom: 1rem;
+            letter-spacing: 0.05em;
         }
 
-        .header-content p {
-            font-size: 1.4rem;
-            color: var(--text-secondary);
+        .header-content .subtitle {
+            font-size: 1.6rem;
+            color: var(--text);
+            margin-bottom: 2rem;
             max-width: 700px;
-            margin: 0 auto 2rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .header-content .cta-button {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .testimonial {
+            background: var(--surface);
+            padding: 1rem;
+            border-radius: 8px;
             font-style: italic;
             color: var(--text-secondary);
             font-size: 1.1rem;
-            margin-top: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            font-weight: 400;
+            opacity: 0.9;
         }
 
         .cta-button {
@@ -191,7 +244,7 @@
             left: 50%;
             width: 0;
             height: 0;
-            background: rgba(0, 255, 136, 0.3);
+            background: rgba(52, 211, 153, 0.3);
             border-radius: 50%;
             transform: translate(-50%, -50%);
             transition: width 0.4s ease, height 0.4s ease;
@@ -203,7 +256,7 @@
         }
 
         .cta-button:hover {
-            background: var(--accent);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             color: var(--background);
             transform: translateY(-3px);
         }
@@ -275,7 +328,7 @@
             left: 50%;
             width: 0;
             height: 0;
-            background: rgba(0, 255, 136, 0.3);
+            background: rgba(52, 211, 153, 0.3);
             border-radius: 50%;
             transform: translate(-50%, -50%);
             transition: width 0.4s ease, height 0.4s ease;
@@ -287,15 +340,62 @@
         }
 
         .lead-form button:hover {
-            background: var(--accent);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             color: var(--background);
             transform: translateY(-3px);
+        }
+
+        #submit-button.loading::after {
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--text);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-left: 0.5rem;
         }
 
         #form-message {
             margin-bottom: 1.2rem;
             font-size: 0.95rem;
             text-align: center;
+        }
+
+        .countdown {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: var(--primary);
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0.7; }
+        }
+
+        .trust-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .trust-badges p {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .post-purchase-note {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 1rem;
         }
 
         .container {
@@ -318,10 +418,11 @@
         .section h2 {
             font-family: 'Poppins', sans-serif;
             text-align: center;
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--primary);
             text-shadow: var(--glow);
             margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
         }
 
         .section-overview {
@@ -330,6 +431,8 @@
             text-align: center;
             max-width: 800px;
             margin: 0 auto 2rem;
+            font-weight: 400;
+            opacity: 0.9;
         }
 
         .lesson-titles {
@@ -365,21 +468,24 @@
         }
 
         .lesson {
-            background: var(--surface);
+            background: linear-gradient(135deg, var(--surface), rgba(52, 211, 153, 0.1));
             padding: 2rem;
             margin-bottom: 2rem;
             border-radius: 12px;
             box-shadow: var(--shadow);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             display: none;
+            border: 1px solid transparent;
         }
 
         .lesson.visible {
             display: block;
+            border-left: 4px solid var(--accent);
         }
 
         .lesson:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--accent);
             box-shadow: 0 8px 25px rgba(0, 196, 255, 0.25);
         }
 
@@ -453,6 +559,27 @@
             color: var(--accent);
         }
 
+        #floating-cta {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: var(--background);
+            border-radius: 50px;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            display: none;
+        }
+
+        #floating-cta:hover {
+            background: var(--accent);
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -514,7 +641,7 @@
                 font-size: 2.8rem;
             }
 
-            .header-content p {
+            .header-content .subtitle {
                 font-size: 1.2rem;
             }
 
@@ -537,6 +664,10 @@
             .footer .container {
                 flex-direction: column;
                 text-align: center;
+            }
+
+            .testimonials {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -590,20 +721,33 @@
         <section class="header">
             <div class="header-content">
                 <h1>Maîtrisez les Cryptomonnaies dès Aujourd'hui</h1>
-                <p>Découvrez comment acheter, stocker et gérer vos cryptomonnaies en toute sécurité avec notre formation pratique et complète.</p>
+                <p class="subtitle">Devenez un expert en crypto avec notre formation pratique : sécurisez vos investissements et maximisez vos profits.</p>
                 <a href="#lead-form" class="cta-button" aria-label="Commencer la formation">Commencer Maintenant</a>
-                <p class="testimonial">"Cette formation m’a donné la confiance pour investir dans les cryptos en toute sécurité !" – Julien M.</p>
+                <div class="testimonials">
+                    <p class="testimonial">"Cette formation m’a donné la confiance pour investir dans les cryptos en toute sécurité !" – Julien M., Investisseur</p>
+                    <p class="testimonial">"Un cours clair et pratique, parfait pour débuter !" – Sophie L., Débutante</p>
+                    <p class="testimonial">"J’ai appris à sécuriser mes portefeuilles comme un pro !" – Marc D., Entrepreneur</p>
+                </div>
             </div>
         </section>
 
         <section class="lead-form" id="lead-form">
+            <div id="countdown" class="countdown">Offre spéciale : Inscrivez-vous avant <span id="timer"></span></div>
             <h3>Déverrouillez Votre Formation Complète</h3>
             <div id="form-message"></div>
             <input type="text" id="name" placeholder="Votre nom" required aria-label="Nom">
-            <input type="email" id="email" placeholder="Votre email" required aria-label="Email">
+            <input type="email" id="email" placeholder="Votre email" required aria-label="Email" oninput="validateEmail(this)">
             <input type="tel" id="phone" placeholder="Votre téléphone" required aria-label="Téléphone">
-            <button type="submit" onclick="submitLead()">Accéder à la Formation</button>
+            <button type="submit" id="submit-button" onclick="submitLead()">Accéder à la Formation</button>
+            <div class="trust-badges">
+                <p><i class="fas fa-lock"></i> Paiement sécurisé via PayPal</p>
+                <p><i class="fas fa-shield-alt"></i> Vos données sont protégées</p>
+                <p><i class="fas fa-undo"></i> Garantie 30 jours satisfait ou remboursé</p>
+            </div>
+            <p class="post-purchase-note">Après paiement via PayPal, recevez un accès instantané à la formation complète par email.</p>
         </section>
+
+        <button id="floating-cta">Déverrouillez Maintenant</button>
 
         <div class="container">
             <section class="section" id="semaine1">
@@ -812,6 +956,12 @@
             }
         }
 
+        // Real-time email validation
+        function validateEmail(input) {
+            const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
+            input.style.borderColor = isValid ? 'var(--accent)' : 'var(--text-secondary)';
+        }
+
         // Lead form submission
         function submitLead() {
             console.log('submitLead called');
@@ -820,6 +970,7 @@
             const phone = document.getElementById('phone')?.value.trim();
             const messageDiv = document.getElementById('form-message');
             const loadingOverlay = document.getElementById('loading-overlay');
+            const submitButton = document.getElementById('submit-button');
 
             if (!messageDiv) {
                 console.error('form-message element not found');
@@ -840,7 +991,8 @@
 
             // Simulate form submission
             console.log('Lead submitted:', { name, email, phone });
-            messageDiv.innerHTML = '<p style="color: var(--accent);">Merci ! Redirection vers PayPal...</p>';
+            messageDiv.innerHTML = '<p style="color: var(--accent);">Merci ! Redirection vers PayPal pour finaliser votre achat...</p>';
+            if (submitButton) submitButton.classList.add('loading');
 
             // Show loading animation
             if (loadingOverlay) {
@@ -863,9 +1015,26 @@
                     loadingOverlay.style.display = 'none';
                     console.log('Loading overlay hidden');
                 }
+                if (submitButton) submitButton.classList.remove('loading');
                 // Redirect to PayPal
                 window.open('https://www.paypal.com/ncp/payment/D5XPBFGB6UP9S', '_blank');
                 console.log('Redirecting to PayPal');
+            }, 1000);
+        }
+
+        // Countdown timer
+        function startCountdown() {
+            const endDate = new Date('2025-05-31T23:59:59').getTime();
+            const timer = document.getElementById('timer');
+            if (!timer) return;
+            setInterval(() => {
+                const now = new Date().getTime();
+                const distance = endDate - now;
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                timer.textContent = `${days}j ${hours}h ${minutes}m`;
+                if (distance < 0) timer.textContent = 'Offre expirée';
             }, 1000);
         }
 
@@ -880,14 +1049,30 @@
                     section.classList.add('visible');
                 }
             });
+
+            // Floating CTA visibility
+            const form = document.getElementById('lead-form');
+            const floatingCta = document.getElementById('floating-cta');
+            if (form && floatingCta) {
+                const formRect = form.getBoundingClientRect();
+                floatingCta.style.display = formRect.bottom < 0 ? 'block' : 'none';
+            }
         }
 
         // Initialize when DOM is fully loaded
         document.addEventListener('DOMContentLoaded', () => {
             console.log('DOMContentLoaded event fired');
             checkContentAccess();
+            startCountdown();
             window.addEventListener('scroll', handleScroll);
             handleScroll();
+
+            // Floating CTA click handler
+            const floatingCta = document.getElementById('floating-cta');
+            const form = document.getElementById('lead-form');
+            if (floatingCta && form) {
+                floatingCta.onclick = () => window.scrollTo({ top: form.offsetTop - 50, behavior: 'smooth' });
+            }
 
             // Keyboard navigation for form
             const formElements = document.querySelectorAll('.lead-form input, .lead-form button');
