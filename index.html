@@ -134,6 +134,10 @@
             margin-right: auto;
         }
 
+        .cta-container {
+            margin: 2rem 0;
+        }
+
         .cta-button {
             display: inline-block;
             padding: 0.9rem 2.5rem;
@@ -557,9 +561,10 @@
             <div class="header-content">
                 <h1>Maîtrisez les Cryptomonnaies dès Aujourd'hui</h1>
                 <p>Découvrez comment acheter, stocker et gérer vos cryptomonnaies en toute sécurité avec notre formation pratique et complète.</p>
-                <div id="cta-container" style="display: none;">
+                <div id="cta-container" class="cta-container" style="display: none;">
                     <a href="https://www.paypal.com/ncp/payment/D5XPBFGB6UP9S" class="cta-button" target="_blank" rel="noopener noreferrer" aria-label="Acheter la formation via PayPal">Obtenir la Formation</a>
                 </div>
+                <p id="cta-fallback" style="display: none; color: #FF5555; margin-top: 1rem;">Erreur : le bouton de paiement n’est pas disponible. Veuillez réessayer ou contacter le support.</p>
                 <p class="testimonial">"Cette formation m’a donné la confiance pour investir dans les cryptos en toute sécurité !" – Julien M.</p>
             </div>
         </section>
@@ -751,10 +756,17 @@
     <script>
         // Check if content is already unlocked
         function checkContentAccess() {
+            console.log('checkContentAccess called');
             const isUnlocked = localStorage.getItem('contentUnlocked') === 'true';
             const lessons = document.querySelectorAll('.lesson');
             const ctaContainer = document.getElementById('cta-container');
+            const ctaFallback = document.getElementById('cta-fallback');
             const loadingOverlay = document.getElementById('loading-overlay');
+
+            console.log('isUnlocked:', isUnlocked);
+            console.log('ctaContainer exists:', !!ctaContainer);
+            console.log('ctaFallback exists:', !!ctaFallback);
+            console.log('loadingOverlay exists:', !!loadingOverlay);
 
             if (isUnlocked) {
                 if (loadingOverlay) {
@@ -766,6 +778,12 @@
                     });
                     if (ctaContainer) {
                         ctaContainer.style.display = 'block';
+                        console.log('ctaContainer set to display: block');
+                    } else {
+                        console.warn('ctaContainer not found');
+                        if (ctaFallback) {
+                            ctaFallback.style.display = 'block';
+                        }
                     }
                     if (loadingOverlay) {
                         loadingOverlay.style.display = 'none';
@@ -777,27 +795,37 @@
                 });
                 if (ctaContainer) {
                     ctaContainer.style.display = 'none';
+                    console.log('ctaContainer set to display: none');
+                }
+                if (ctaFallback) {
+                    ctaFallback.style.display = 'none';
                 }
             }
         }
 
         // Lead form submission
         function submitLead() {
+            console.log('submitLead called');
             const name = document.getElementById('name')?.value.trim();
             const email = document.getElementById('email')?.value.trim();
             const phone = document.getElementById('phone')?.value.trim();
             const messageDiv = document.getElementById('form-message');
             const loadingOverlay = document.getElementById('loading-overlay');
 
-            if (!messageDiv) return;
+            if (!messageDiv) {
+                console.error('form-message element not found');
+                return;
+            }
 
             if (!name || !email || !phone) {
                 messageDiv.innerHTML = '<p style="color: #FF5555;">Veuillez remplir tous les champs.</p>';
+                console.log('Form validation failed: missing fields');
                 return;
             }
 
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 messageDiv.innerHTML = '<p style="color: #FF5555;">Veuillez entrer un email valide.</p>';
+                console.log('Form validation failed: invalid email');
                 return;
             }
 
@@ -808,11 +836,13 @@
             // Show loading animation
             if (loadingOverlay) {
                 loadingOverlay.style.display = 'flex';
+                console.log('Loading overlay shown');
             }
 
             // Unlock content after brief delay
             setTimeout(() => {
                 localStorage.setItem('contentUnlocked', 'true');
+                console.log('localStorage contentUnlocked set to true');
                 checkContentAccess();
                 const nameInput = document.getElementById('name');
                 const emailInput = document.getElementById('email');
@@ -822,6 +852,7 @@
                 if (phoneInput) phoneInput.value = '';
                 if (loadingOverlay) {
                     loadingOverlay.style.display = 'none';
+                    console.log('Loading overlay hidden');
                 }
             }, 1000);
         }
@@ -841,6 +872,7 @@
 
         // Initialize when DOM is fully loaded
         document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOMContentLoaded event fired');
             checkContentAccess();
             window.addEventListener('scroll', handleScroll);
             handleScroll();
@@ -865,3 +897,5 @@
             }
         });
     </script>
+</body>
+</html>
