@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" async />
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Roboto:wght@400;500&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Add QR code library for Bitcoin payment -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" async></script>
     <style>
         :root {
             --primary: #F5C518; /* Or vibrant */
@@ -308,6 +310,7 @@
         .lead-form button {
             width: 100%;
             padding: 1rem;
+            margin-bottom: 1rem;
             background: var(--button-bg);
             color: var(--button-text);
             border: none;
@@ -345,7 +348,8 @@
             transform: translateY(-3px);
         }
 
-        #submit-button.loading::after {
+        #submit-button.loading::after,
+        #bitcoin-button.loading::after {
             content: '';
             display: inline-block;
             width: 16px;
@@ -396,6 +400,56 @@
             color: var(--text-secondary);
             text-align: center;
             margin-top: 1rem;
+        }
+
+        /* Bitcoin payment modal styles */
+        .bitcoin-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bitcoin-modal-content {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .bitcoin-modal-content h3 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .bitcoin-modal-content p {
+            color: var(--text);
+            margin-bottom: 1rem;
+            word-break: break-all;
+        }
+
+        .bitcoin-modal-content button {
+            padding: 0.8rem 1.5rem;
+            background: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .bitcoin-modal-content button:hover {
+            background: var(--accent);
+            color: var(--background);
         }
 
         .container {
@@ -703,6 +757,18 @@
         <div class="loading-spinner"></div>
     </div>
 
+    <!-- Bitcoin payment modal -->
+    <div class="bitcoin-modal" id="bitcoin-modal">
+        <div class="bitcoin-modal-content">
+            <h3>Payer avec Bitcoin</h3>
+            <p>Envoyez 0.001 BTC (environ 100 USD) à l'adresse suivante :</p>
+            <p id="bitcoin-address">bc1qa8g88723k52tjnm6vtgkpymmpw0vg0s5e2eql6</p>
+            <div id="bitcoin-qr"></div>
+            <p>Après le paiement, envoyez la confirmation à <a href="mailto:legatio.finance@gmail.com">legatio.finance@gmail.com</a>.</p>
+            <button onclick="closeBitcoinModal()">Fermer</button>
+        </div>
+    </div>
+
     <header class="navbar">
         <nav class="container" role="navigation" aria-label="Menu principal">
             <a href="#" class="logo-text" aria-label="Retour à l'accueil">Legatio Finance</a>
@@ -738,13 +804,14 @@
             <input type="text" id="name" placeholder="Votre nom" required aria-label="Nom">
             <input type="email" id="email" placeholder="Votre email" required aria-label="Email" oninput="validateEmail(this)">
             <input type="tel" id="phone" placeholder="Votre téléphone" required aria-label="Téléphone">
-            <button type="submit" id="submit-button" onclick="submitLead()">Accéder à la Formation</button>
+            <button type="submit" id="submit-button" onclick="submitLead('paypal')">Payer avec PayPal</button>
+            <button type="submit" id="bitcoin-button" onclick="submitLead('bitcoin')">Payer avec Bitcoin</button>
             <div class="trust-badges">
-                <p><i class="fas fa-lock"></i> Paiement sécurisé via PayPal</p>
+                <p><i class="fas fa-lock"></i> Paiement sécurisé via PayPal ou Bitcoin</p>
                 <p><i class="fas fa-shield-alt"></i> Vos données sont protégées</p>
                 <p><i class="fas fa-undo"></i> Garantie 30 jours satisfait ou remboursé</p>
             </div>
-            <p class="post-purchase-note">Après paiement via PayPal, recevez un accès instantané à la formation complète par email.</p>
+            <p class="post-purchase-note">Après paiement via PayPal ou Bitcoin, recevez un accès instantané à la formation complète par email.</p>
         </section>
 
         <button id="floating-cta">Déverrouillez Maintenant</button>
@@ -819,7 +886,7 @@
             </section>
 
             <section class="section" id="semaine3">
-                <h2>Semaine 3 : Sécuriser Votre Polrtefeuille</h2>
+                <h2>Semaine 3 : Sécuriser Votre Portefeuille</h2>
                 <p class="section-overview">Créez et protégez vos portefeuilles numériques pour garantir la sécurité de vos cryptomonnaies.</p>
                 <div class="lesson-titles">
                     <ul>
@@ -879,7 +946,7 @@
                 </div>
                 <div class="lesson">
                     <h3><i class="fas fa-chart-line"></i> Leçon 3 : Évaluation des Risques</h3>
-                    <p>Volatilité, sécurité, fraudes, réglementation.</p>
+                    <p>Volatilité, sécurité, fraudes, réglementations.</p>
                 </div>
                 <div class="lesson">
                     <h3><i class="fas fa-shield-alt"></i> Leçon 4 : Stratégies de Gestion des Risques</h3>
@@ -963,14 +1030,15 @@
         }
 
         // Lead form submission
-        function submitLead() {
-            console.log('submitLead called');
+        function submitLead(paymentMethod) {
+            console.log('submitLead called with:', paymentMethod);
             const name = document.getElementById('name')?.value.trim();
             const email = document.getElementById('email')?.value.trim();
             const phone = document.getElementById('phone')?.value.trim();
             const messageDiv = document.getElementById('form-message');
             const loadingOverlay = document.getElementById('loading-overlay');
             const submitButton = document.getElementById('submit-button');
+            const bitcoinButton = document.getElementById('bitcoin-button');
 
             if (!messageDiv) {
                 console.error('form-message element not found');
@@ -991,8 +1059,13 @@
 
             // Simulate form submission
             console.log('Lead submitted:', { name, email, phone });
-            messageDiv.innerHTML = '<p style="color: var(--accent);">Merci ! Redirection vers PayPal pour finaliser votre achat...</p>';
-            if (submitButton) submitButton.classList.add('loading');
+            if (paymentMethod === 'paypal') {
+                messageDiv.innerHTML = '<p style="color: var(--accent);">Merci ! Redirection vers PayPal pour finaliser votre achat...</p>';
+                if (submitButton) submitButton.classList.add('loading');
+            } else if (paymentMethod === 'bitcoin') {
+                messageDiv.innerHTML = '<p style="color: var(--accent);">Merci ! Préparation des détails de paiement Bitcoin...</p>';
+                if (bitcoinButton) bitcoinButton.classList.add('loading');
+            }
 
             // Show loading animation
             if (loadingOverlay) {
@@ -1000,7 +1073,7 @@
                 console.log('Loading overlay shown');
             }
 
-            // Unlock content and redirect to PayPal
+            // Handle payment
             setTimeout(() => {
                 localStorage.setItem('contentUnlocked', 'true');
                 console.log('localStorage contentUnlocked set to true');
@@ -1016,10 +1089,55 @@
                     console.log('Loading overlay hidden');
                 }
                 if (submitButton) submitButton.classList.remove('loading');
-                // Redirect to PayPal
-                window.open('https://www.paypal.com/ncp/payment/D5XPBFGB6UP9S', '_blank');
-                console.log('Redirecting to PayPal');
+                if (bitcoinButton) bitcoinButton.classList.remove('loading');
+
+                if (paymentMethod === 'paypal') {
+                    // Redirect to PayPal
+                    window.open('https://www.paypal.com/ncp/payment/D5XPBFGB6UP9S', '_blank');
+                    console.log('Redirecting to PayPal');
+                } else if (paymentMethod === 'bitcoin') {
+                    // Show Bitcoin payment modal
+                    showBitcoinPayment();
+                    console.log('Showing Bitcoin payment modal');
+                }
             }, 1000);
+        }
+
+        // Bitcoin payment handling
+        function showBitcoinPayment() {
+            const bitcoinModal = document.getElementById('bitcoin-modal');
+            const bitcoinAddress = document.getElementById('bitcoin-address');
+            const bitcoinQr = document.getElementById('bitcoin-qr');
+
+            // Your Bitcoin wallet address
+            const yourBitcoinAddress = 'bc1qa8g88723k52tjnm6vtgkpymmpw0vg0s5e2eql6';
+            const amount = '0.001'; // Example amount in BTC (approx. 100 USD, adjust as needed)
+            const bitcoinUri = `bitcoin:${yourBitcoinAddress}?amount=${amount}`;
+
+            if (bitcoinAddress) {
+                bitcoinAddress.textContent = yourBitcoinAddress;
+            }
+            if (bitcoinQr) {
+                bitcoinQr.innerHTML = ''; // Clear previous QR code
+                new QRCode(bitcoinQr, {
+                    text: bitcoinUri,
+                    width: 150,
+                    height: 150,
+                    colorDark: '#000000',
+                    colorLight: '#ffffff',
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            }
+            if (bitcoinModal) {
+                bitcoinModal.style.display = 'flex';
+            }
+        }
+
+        function closeBitcoinModal() {
+            const bitcoinModal = document.getElementById('bitcoin-modal');
+            if (bitcoinModal) {
+                bitcoinModal.style.display = 'none';
+            }
         }
 
         // Countdown timer
@@ -1086,7 +1204,7 @@
                             if (nextIndex < inputs.length) {
                                 inputs[nextIndex].focus();
                             } else {
-                                submitLead();
+                                submitLead('paypal'); // Default to PayPal for Enter key
                             }
                         }
                     });
